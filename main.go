@@ -5,6 +5,7 @@ import (
 	"log"
 	"math/rand"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -47,7 +48,8 @@ PLAY:
 		}
 
 		var input int
-		attempt := 0
+		attempt := 1
+		start := time.Now()
 		for attempt < maxAttempt {
 			fmt.Print("\nEnter your guess: ")
 			fmt.Scan(&input)
@@ -57,7 +59,11 @@ PLAY:
 			} else if input < target {
 				fmt.Printf("Incorrect! The number is greater than %d.\n", input)
 			} else {
-				fmt.Printf("Congratulations! You guessed the correct number in %d attempts.\n", attempt)
+				duration := time.Since(start)
+				fmt.Printf("Congratulations! You guessed the correct number in %d attempts and with time: %v\n",
+					attempt,
+					duration,
+				)
 
 				fmt.Print("Do you want to play again? [y/n] ")
 				fmt.Scan(&play)
