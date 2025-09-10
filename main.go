@@ -9,6 +9,11 @@ import (
 )
 
 func main() {
+	bestScore := map[int16]int{
+		1: 100,
+		2: 100,
+		3: 100,
+	}
 	fmt.Println("Welcome to the Number Guessing Game!")
 	fmt.Println("I'm thinking of a number between 1 and 100.")
 	fmt.Println("You have some chances based on the difficult to guess the correct number.")
@@ -60,10 +65,15 @@ PLAY:
 				fmt.Printf("Incorrect! The number is greater than %d.\n", input)
 			} else {
 				duration := time.Since(start)
+				if bestScore[choice] > attempt {
+					bestScore[choice] = attempt
+				}
+
 				fmt.Printf("Congratulations! You guessed the correct number in %d attempts and with time: %v\n",
 					attempt,
 					duration,
 				)
+				fmt.Printf("Current BEST score this difficulty: %d attempts\n", bestScore[choice])
 
 				fmt.Print("Do you want to play again? [y/n] ")
 				fmt.Scan(&play)
